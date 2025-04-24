@@ -1,0 +1,2254 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circuwear - Platform Penyewaan Fashion Berkelanjutan</title>
+    <style>
+        :root {
+            --primary: #2A9D8F;
+            --secondary: #264653;
+            --accent: #E9C46A;
+            --light: #F8F9FA;
+            --dark: #212529;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --info: #17a2b8;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header and Navigation */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--secondary);
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .notifications {
+            position: relative;
+        }
+
+        .notification-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--danger);
+            color: white;
+            font-size: 0.7rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #238a7d;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Main Dashboard */
+        .dashboard {
+            margin-top: 2rem;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .dashboard-title {
+            font-size: 1.75rem;
+            color: var(--secondary);
+        }
+
+        .date-picker {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border-radius: 4px;
+            padding: 0.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .date-picker span {
+            margin: 0 0.5rem;
+            color: var(--gray);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .metric-title {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-trend {
+            display: flex;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        .trend-up {
+            color: var(--success);
+        }
+
+        .trend-down {
+            color: var(--danger);
+        }
+
+        /* Alerts Section */
+        .alerts-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .view-all {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .alerts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .alert-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 6px;
+            background-color: #fff8e1;
+            border-left: 4px solid var(--warning);
+        }
+
+        .alert-icon {
+            margin-right: 1rem;
+            color: var(--warning);
+            font-size: 1.2rem;
+        }
+
+        .alert-info {
+            flex-grow: 1;
+        }
+
+        .alert-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .alert-time {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .alert-action {
+            margin-left: 1rem;
+        }
+
+        /* Calendar and Quick Access Section */
+        .dual-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .calendar-section, .quick-access {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .calendar-nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+        }
+
+        .calendar-day {
+            text-align: center;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .calendar-weekday {
+            font-weight: 600;
+            color: var(--gray);
+        }
+
+        .calendar-date {
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .calendar-date:hover {
+            background-color: var(--light-gray);
+        }
+
+        .calendar-date.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .calendar-date.has-events::after {
+            content: '';
+            display: block;
+            width: 4px;
+            height: 4px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            margin: 2px auto 0;
+        }
+
+        .quick-access-links {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .quick-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            background-color: var(--light);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--secondary);
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .quick-link:hover {
+            background-color: var(--light-gray);
+            transform: translateY(-3px);
+        }
+
+        .quick-link-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .quick-link-text {
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        /* Tabs Navigation */
+        .tabs-nav {
+            display: flex;
+            border-bottom: 1px solid var(--light-gray);
+            margin-bottom: 2rem;
+        }
+
+        .tab-item {
+            padding: 1rem 1.5rem;
+            margin-right: 1rem;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--gray);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab-item.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        /* Inventory Management */
+        .inventory-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .inventory-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background-color: var(--light);
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            width: 300px;
+        }
+
+        .search-box input {
+            border: none;
+            background: transparent;
+            padding: 0.3rem 0;
+            width: 100%;
+            outline: none;
+        }
+
+        .filter-controls {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .inventory-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .inventory-table th, .inventory-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .inventory-table th {
+            color: var(--gray);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-available {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+        }
+
+        .status-rented {
+            background-color: rgba(0, 123, 255, 0.1);
+            color: #007bff;
+        }
+
+        .status-maintenance {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: var(--warning);
+        }
+
+        .status-retired {
+            background-color: rgba(108, 117, 125, 0.1);
+            color: var(--gray);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--gray);
+            transition: color 0.3s;
+        }
+
+        .action-btn:hover {
+            color: var(--primary);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1.5rem;
+            gap: 0.5rem;
+        }
+
+        .page-item {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .page-item:hover {
+            background-color: var(--light-gray);
+        }
+
+        .page-item.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* User Management */
+        .user-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .user-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .user-card {
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .user-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-header {
+            padding: 1.5rem;
+            background-color: var(--light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+
+        .user-name {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .user-email {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .user-body {
+            padding: 1.5rem;
+        }
+
+        .user-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .user-stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: var(--secondary);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+
+        .user-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .rating-stars {
+            color: var(--accent);
+            margin-right: 0.5rem;
+        }
+
+        .rating-value {
+            font-weight: 600;
+        }
+
+        .user-footer {
+            display: flex;
+        }
+
+        .user-btn {
+            flex: 1;
+            padding: 0.75rem;
+            text-align: center;
+            border: none;
+            background-color: var(--light);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .user-btn:hover {
+            background-color: var(--light-gray);
+        }
+
+        /* Order Management */
+        .order-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .order-overview {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .order-stat {
+            background-color: var(--light);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .order-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .order-stat-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .order-timeline {
+            margin-top: 2rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1rem;
+        }
+
+        .timeline-content {
+            background-color: var(--light);
+            border-radius: 8px;
+            padding: 1rem;
+            flex-grow: 1;
+            position: relative;
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid var(--light);
+            left: -10px;
+            top: 10px;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-time {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* Loyalty Program */
+        .loyalty-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .reward-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .reward-card {
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .reward-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .reward-img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .reward-body {
+            padding: 1.5rem;
+        }
+
+        .reward-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .reward-points {
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .reward-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Reports & Analytics */
+        .analytics-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .chart-container {
+            height: 300px;
+            margin-top: 1.5rem;
+            position: relative;
+        }
+
+        .chart-placeholder {
+            width: 100%;
+            height: 100%;
+            background-color: var(--light);
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--gray);
+            font-style: italic;
+        }
+
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        /* System Settings */
+        .settings-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .settings-card {
+            background-color: var(--light);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .settings-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .settings-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .settings-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .settings-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-desc {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+        }
+
+        .footer-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .footer-link:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 1200px) {
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .dual-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-wrap: wrap;
+            }
+            
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .inventory-controls {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+            
+            .filter-controls {
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+            }
+            
+            .inventory-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .user-actions {
+                display: none;
+            }
+            
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .quick-access-links {
+                grid-template-columns: 1fr;
+            }
+            
+            .order-overview {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header and Navigation -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <img src="/api/placeholder/40/40" alt="Circuwear Logo">
+                    <h1>Circuwear</h1>
+                </div>
+                
+                <button class="mobile-menu-btn">☰</button>
+                
+                <div class="nav-links">
+                    <a href="#dashboard">Dashboard</a>
+                    <a href="#inventory">Inventaris</a>
+                    <a href="#users">Pengguna</a>
+                    <a href="#orders">Pesanan</a>
+                    <a href="#loyalty">Program Loyalitas</a>
+                    <a href="#analytics">Analitik</a>
+                    <a href="#settings">Pengaturan</a>
+                </div>
+                
+                <div class="user-actions">
+                    <div class="notifications">
+                        <span>🔔</span>
+                        <span class="notification-count">3</span>
+                    </div>
+                    <button class="btn btn-outline">Admin Panel</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="dashboard">
+            <div class="dashboard-header">
+                <h2 class="dashboard-title">Dashboard</h2>
+                <div class="date-picker">
+                    <span>◀</span>
+                    <span>April 2025</span>
+                    <span>▶</span>
+                </div>
+            </div>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-title">Sewa Aktif</div>
+                    <div class="metric-value">247</div>
+                    <div class="metric-trend trend-up">
+                        <span>↑ 12.3%</span> dari bulan lalu
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-title">Pengguna Baru</div>
+                    <div class="metric-value">58</div>
+                    <div class="metric-trend trend-up">
+                        <span>↑ 7.5%</span> dari bulan lalu
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-title">Pendapatan Harian</div>
+                    <div class="metric-value">Rp 8,5jt</div>
+                    <div class="metric-trend trend-up">
+                        <span>↑ 5.2%</span> dari kemarin
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-title">Item Tersedia</div>
+                    <div class="metric-value">1.258</div>
+                    <div class="metric-trend trend-down">
+                        <span>↓ 3.1%</span> dari bulan lalu
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Alerts Section -->
+            <div class="alerts-section">
+                <div class="section-header">
+                    <h3 class="section-title">Alert System</h3>
+                    <a href="#" class="view-all">Lihat Semua</a>
+                </div>
+                
+                <div class="alerts-list">
+                    <div class="alert-item">
+                        <div class="alert-icon">⚠️</div>
+                        <div class="alert-info">
+                            <div class="alert-title">Stok Menipis - Kategori Dress Formal</div>
+                            <div class="alert-description">Tersisa 5 item dari 20 minimum yang direkomendasikan</div>
+                            <div class="alert-time">2 jam yang lalu</div>
+                        </div>
+                        <button class="btn btn-outline alert-action">Restock</button>
+                    </div>
+                    
+                    <div class="alert-item" style="background-color: #ffe8e8; border-left-color: var(--danger);">
+                        <div class="alert-icon" style="color: var(--danger);">⚠️</div>
+                        <div class="alert-info">
+                            <div class="alert-title">Pengembalian Terlambat - ID Order #28765</div>
+                            <div class="alert-description">Terlambat 3 hari dari jadwal pengembalian</div>
+                            <div class="alert-time">5 jam yang lalu</div>
+                        </div>
+                        <button class="btn btn-outline alert-action">Hubungi</button>
+                    </div>
+                    
+                    <div class="alert-item" style="background-color: #e6f7ff; border-left-color: var(--info);">
+                        <div class="alert-icon" style="color: var(--info);">ℹ️</div>
+                        <div class="alert-info">
+                            <div class="alert-title">Maintenance Terjadwal - 25 Item</div>
+                            <div class="alert-description">Jadwal maintenance untuk 25 item besok</div>
+                            <div class="alert-time">1 hari yang lalu</div>
+                        </div>
+                        <button class="btn btn-outline alert-action">Jadwalkan</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Calendar and Quick Access Section -->
+            <div class="dual-section">
+                <div class="calendar-section">
+                    <div class="calendar-header">
+                        <h3 class="section-title">Calendar View</h3>
+                        <div class="calendar-nav">
+                            <span>◀</span>
+                            <span>April 2025</span>
+                            <span>▶</span>
+                        </div>
+                    </div>
+                    
+                    <div class="calendar-grid">
+                        <div class="calendar-day calendar-weekday">Min</div>
+                        <div class="calendar-day calendar-weekday">Sen</div>
+                        <div class="calendar-day calendar-weekday">Sel</div>
+                        <div class="calendar-day calendar-weekday">Rab</div>
+                        <div class="calendar-day calendar-weekday">Kam</div>
+                        <div class="calendar-day calendar-weekday">Jum</div>
+                        <div class="calendar-day calendar-weekday">Sab</div>
+                        
+                        <div class="calendar-day calendar-date"></div>
+                        <div class="calendar-day calendar-date">1</div>
+                        <div class="calendar-day calendar-date">2</div>
+                        <div class="calendar-day calendar-date">3</div>
+                        <div class="calendar-day calendar-date">4</div>
+                        <div class="calendar-day calendar-date has-events">5</div>
+                        <div class="calendar-day calendar-date">6</div>
+                        
+                        <div class="calendar-day calendar-date">7</div>
+                        <div class="calendar-day calendar-date">8</div>
+                        <div class="calendar-day calendar-date has-events">9</div>
+                        <div class="calendar-day calendar-date">10</div>
+                        <div class="calendar-day calendar-date">11</div>
+                        <div class="calendar-day calendar-date">12</div>
+                        <div class="calendar-day calendar-date">13</div>
+                        
+                        <div class="calendar-day calendar-date">14</div>
+                        <div class="calendar-day calendar-date has-events">15</div>
+                        <div class="calendar-day calendar-date">16</div>
+                        <div class="calendar-day calendar-date">17</div>
+                        <div class="calendar-day calendar-date">18</div>
+                        <div class="calendar-day calendar-date">19</div>
+                        <div class="calendar-day calendar-date">20</div>
+                        
+                        <div class="calendar-day calendar-date">21</div>
+                        <div class="calendar-day calendar-date">22</div>
+                        <div class="calendar-day calendar-date">23</div>
+                        <div class="calendar-day calendar-date">24</div>
+                        <div class="calendar-day calendar-date active">25</div>
+                        <div class="calendar-day calendar-date has-events">26</div>
+                        <div class="calendar-day calendar-date">27</div>
+                        
+                        <div class="calendar-day calendar-date">28</div>
+                        <div class="calendar-day calendar-date has-events">29</div>
+                        <div class="calendar-day calendar-date">30</div>
+                        <div class="calendar-day calendar-date"></div>
+                        <div class="calendar-day calendar-date"></div>
+                        <div class="calendar-day calendar-date"></div>
+                        <div class="calendar-day calendar-date"></div>
+                    </div>
+                    
+                    <div style="margin-top: 1.5rem;">
+                        <div class="section-header">
+                            <h4 class="section-title">Agenda Hari Ini (25 April)</h4>
+                        </div>
+                        
+                        <div style="padding: 1rem; background-color: var(--light); border-radius: 8px; margin-top: 0.5rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <div style="font-weight: 600;">Pengiriman 15 Item</div>
+                                <div style="font-size: 0.85rem; color: var(--gray);">09:00 - 11:00</div>
+                            </div>
+                            <div style="font-size: 0.9rem;">Pengiriman pakaian ke 5 alamat di Jakarta Selatan</div>
+                        </div>
+                        
+                        <div style="padding: 1rem; background-color: var(--light); border-radius: 8px; margin-top: 0.5rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <div style="font-weight: 600;">Pengembalian 23 Item</div>
+                                <div style="font-size: 0.85rem; color: var(--gray);">13:00 - 15:00</div>
+                            </div>
+                            <div style="font-size: 0.9rem;">Pengembalian dari pelanggan di area Jakarta Pusat</div>
+                        </div>
+                        
+                        <div style="padding: 1rem; background-color: var(--light); border-radius: 8px; margin-top: 0.5rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <div style="font-weight: 600;">Maintenance Rutin</div>
+                                <div style="font-size: 0.85rem; color: var(--gray);">16:00 - 18:00</div>
+                            </div>
+                            <div style="font-size: 0.9rem;">Pembersihan dan perbaikan 35 item pakaian</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quick-access">
+                    <div class="section-header">
+                        <h3 class="section-title">Quick Access</h3>
+                    </div>
+                    
+                    <div class="quick-access-links">
+                        <a href="#" class="quick-link">
+                            <div class="quick-link-icon">📝</div>
+                            <div class="quick-link-text">Tambah Item Baru</div>
+                        </a>
+                        
+                        <a href="#" class="quick-link">
+                            <div class="quick-link-icon">👤</div>
+                            <div class="quick-link-text">Tambah Pengguna</div>
+                        </a>
+                        
+                        <a href="#" class="quick-link">
+                            <div class="quick-link-icon">🚚</div>
+                            <div class="quick-link-text">Jadwalkan Pengiriman</div>
+                        </a>
+                        
+                        <a href="#" class="quick-link">
+                            <div class="quick-link-icon">📊</div>
+                            <div class="quick-link-text">Laporan Harian</div>
+                        </a>
+                        
+                        <a href="#" class="quick-link">
+                            <div class="quick-link-icon">🏷️</div>
+                            <div class="quick-link-text">Cetak Label</div>
+                        </a>
+                        
+                        <a href="#" class="quick-link">
+                            <div class="quick-link-icon">⚙️</div>
+                            <div class="quick-link-text">Konfigurasi Sistem</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Tabs Navigation -->
+        <div class="tabs-nav">
+            <div class="tab-item active">Manajemen Inventaris</div>
+            <div class="tab-item">Manajemen Pengguna</div>
+            <div class="tab-item">Manajemen Pesanan</div>
+            <div class="tab-item">Program Loyalitas</div>
+            <div class="tab-item">Laporan & Analitik</div>
+            <div class="tab-item">Pengaturan Sistem</div>
+        </div>
+        
+        <!-- Inventory Management Section -->
+        <section id="inventory" class="inventory-section">
+            <div class="section-header">
+                <h3 class="section-title">Manajemen Inventaris</h3>
+            </div>
+            
+            <div class="inventory-controls">
+                <div class="search-box">
+                    <span>🔍</span>
+                    <input type="text" placeholder="Cari item berdasarkan ID, nama, atau kategori...">
+                </div>
+                
+                <div class="filter-controls">
+                    <button class="btn btn-outline">Filter</button>
+                    <button class="btn btn-outline">Sort</button>
+                    <button class="btn btn-primary">+ Tambah Item</button>
+                </div>
+            </div>
+            
+            <table class="inventory-table">
+                <thead>
+                    <tr>
+                        <th>ID Item</th>
+                        <th>Nama Item</th>
+                        <th>Kategori</th>
+                        <th>Ukuran</th>
+                        <th>Status</th>
+                        <th>Kualitas</th>
+                        <th>Terakhir Disewa</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#ID12345</td>
+                        <td>Dress Floral Vintage</td>
+                        <td>Dress Formal</td>
+                        <td>M</td>
+                        <td><span class="status-badge status-available">Available</span></td>
+                        <td>⭐⭐⭐⭐⭐ (5/5)</td>
+                        <td>15 April 2025</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-btn">✏️</button>
+                                <button class="action-btn">👁️</button>
+                                <button class="action-btn">🏷️</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#ID12346</td>
+                        <td>Blazer Navy Classic</td>
+                        <td>Formal</td>
+                        <td>L</td>
+                        <td><span class="status-badge status-rented">Disewa</span></td>
+                        <td>⭐⭐⭐⭐ (4/5)</td>
+                        <td>Aktif</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-btn">✏️</button>
+                                <button class="action-btn">👁️</button>
+                                <button class="action-btn">🏷️</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#ID12347</td>
+                        <td>Kemeja Linen Putih</td>
+                        <td>Casual</td>
+                        <td>XL</td>
+                        <td><span class="status-badge status-maintenance">Maintenance</span></td>
+                        <td>⭐⭐⭐ (3/5)</td>
+                        <td>10 April 2025</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-btn">✏️</button>
+                                <button class="action-btn">👁️</button>
+                                <button class="action-btn">🏷️</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#ID12348</td>
+                        <td>Rok Plisket Midi</td>
+                        <td>Casual</td>
+                        <td>S</td>
+                        <td><span class="status-badge status-available">Available</span></td>
+                        <td>⭐⭐⭐⭐⭐ (5/5)</td>
+                        <td>8 April 2025</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-btn">✏️</button>
+                                <button class="action-btn">👁️</button>
+                                <button class="action-btn">🏷️</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#ID12349</td>
+                        <td>Jas Premium Hitam</td>
+                        <td>Formal</td>
+                        <td>M</td>
+                        <td><span class="status-badge status-retired">Retired</span></td>
+                        <td>⭐⭐ (2/5)</td>
+                        <td>5 Maret 2025</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-btn">✏️</button>
+                                <button class="action-btn">👁️</button>
+                                <button class="action-btn">🏷️</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="pagination">
+                <div class="page-item">◀</div>
+                <div class="page-item active">1</div>
+                <div class="page-item">2</div>
+                <div class="page-item">3</div>
+                <div class="page-item">4</div>
+                <div class="page-item">5</div>
+                <div class="page-item">▶</div>
+            </div>
+        </section>
+        
+        <!-- User Management Section -->
+        <section id="users" class="user-section">
+            <div class="section-header">
+                <h3 class="section-title">Manajemen Pengguna</h3>
+                <div class="filter-controls">
+                    <div class="search-box">
+                        <span>🔍</span>
+                        <input type="text" placeholder="Cari pengguna...">
+                    </div>
+                    <button class="btn btn-primary">+ Tambah Pengguna</button>
+                </div>
+            </div>
+            
+            <div class="user-list">
+                <div class="user-card">
+                    <div class="user-header">
+                        <img src="/api/placeholder/80/80" alt="Avatar" class="user-avatar">
+                        <div class="user-name">Putri Maharani</div>
+                        <div class="user-email">putri@email.com</div>
+                    </div>
+                    <div class="user-body">
+                        <div class="user-stats">
+                            <div class="user-stat">
+                                <div class="stat-value">24</div>
+                                <div class="stat-label">Sewa</div>
+                            </div>
+                            <div class="user-stat">
+                                <div class="stat-value">1.250</div>
+                                <div class="stat-label">Poin</div>
+                            </div>
+                            <div class="user-stat">
+                                <div class="stat-value">VIP</div>
+                                <div class="stat-label">Status</div>
+                            </div>
+                        </div>
+                        <div class="user-rating">
+                            <div class="rating-stars">⭐⭐⭐⭐⭐</div>
+                            <div class="rating-value">5.0</div>
+                        </div>
+                        <div style="font-size: 0.9rem;">
+                            <span style="color: var(--gray);">KYC:</span>
+                            <span style="color: var(--success); font-weight: 500;">Terverifikasi</span>
+                        </div>
+                    </div>
+                    <div class="user-footer">
+                        <button class="user-btn">Detail</button>
+                        <button class="user-btn">Edit</button>
+                        <button class="user-btn">Email</button>
+                    </div>
+                </div>
+                
+                <div class="user-card">
+                    <div class="user-header">
+                        <img src="/api/placeholder/80/80" alt="Avatar" class="user-avatar">
+                        <div class="user-name">Budi Santoso</div>
+                        <div class="user-email">budi@email.com</div>
+                    </div>
+                    <div class="user-body">
+                        <div class="user-stats">
+                            <div class="user-stat">
+                                <div class="stat-value">18</div>
+                                <div class="stat-label">Sewa</div>
+                            </div>
+                            <div class="user-stat">
+                                <div class="stat-value">950</div>
+                                <div class="stat-label">Poin</div>
+                            </div>
+                            <div class="user-stat">
+                                <div class="stat-value">Gold</div>
+                                <div class="stat-label">Status</div>
+                            </div>
+                        </div>
+                        <div class="user-rating">
+                            <div class="rating-stars">⭐⭐⭐⭐</div>
+                            <div class="rating-value">4.2</div>
+                        </div>
+                        <div style="font-size: 0.9rem;">
+                            <span style="color: var(--gray);">KYC:</span>
+                            <span style="color: var(--success); font-weight: 500;">Terverifikasi</span>
+                        </div>
+                    </div>
+                    <div class="user-footer">
+                        <button class="user-btn">Detail</button>
+                        <button class="user-btn">Edit</button>
+                        <button class="user-btn">Email</button>
+                    </div>
+                </div>
+                
+                <div class="user-card">
+                    <div class="user-header">
+                        <img src="/api/placeholder/80/80" alt="Avatar" class="user-avatar">
+                        <div class="user-name">Anisa Wijaya</div>
+                        <div class="user-email">anisa@email.com</div>
+                    </div>
+                    <div class="user-body">
+                        <div class="user-stats">
+                            <div class="user-stat">
+                                <div class="stat-value">12</div>
+                                <div class="stat-label">Sewa</div>
+                            </div>
+                            <div class="user-stat">
+                                <div class="stat-value">600</div>
+                                <div class="stat-label">Poin</div>
+                            </div>
+                            <div class="user-stat">
+                                <div class="stat-value">Silver</div>
+                                <div class="stat-label">Status</div>
+                            </div>
+                        </div>
+                        <div class="user-rating">
+                            <div class="rating-stars">⭐⭐⭐⭐</div>
+                            <div class="rating-value">4.0</div>
+                        </div>
+                        <div style="font-size: 0.9rem;">
+                            <span style="color: var(--gray);">KYC:</span>
+                            <span style="color: var(--warning); font-weight: 500;">Pending</span>
+                        </div>
+                    </div>
+                    <div class="user-footer">
+                        <button class="user-btn">Detail</button>
+                        <button class="user-btn">Edit</button>
+                        <button class="user-btn">Email</button>
+                    </div>
+                </div>
+                
+                <div class="user-card">
+                    <div class="user-header">
+                        <img src="/api/placeholder/80/80" alt="Avatar" class="user-avatar">
+                        <div class="user-name">Rendi Pratama</div>
+                        <div class="user-email">rendi@email.com</div>
+                    </div>
+                    <div class="user-body">
+                        <div class="user-stats">
+                            <div class="user-stat">
+                                <div class="stat-value">5</div>
+                                <div class="stat-label">Sewa</div>
+                            </div>
+                            <div class="user-stat">
+                                <div class="stat-value">250</div>
+                                <div class="stat-label">Poin</div>
+                            </div>
+                            <div class="user-stat">
+                                <div class="stat-value">Bronze</div>
+                                <div class="stat-label">Status</div>
+                            </div>
+                        </div>
+                        <div class="user-rating">
+                            <div class="rating-stars">⭐⭐⭐</div>
+                            <div class="rating-value">3.5</div>
+                        </div>
+                        <div style="font-size: 0.9rem;">
+                            <span style="color: var(--gray);">KYC:</span>
+                            <span style="color: var(--success); font-weight: 500;">Terverifikasi</span>
+                        </div>
+                    </div>
+                    <div class="user-footer">
+                        <button class="user-btn">Detail</button>
+                        <button class="user-btn">Edit</button>
+                        <button class="user-btn">Email</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pagination" style="margin-top: 2rem;">
+                <div class="page-item">◀</div>
+                <div class="page-item active">1</div>
+                <div class="page-item">2</div>
+                <div class="page-item">3</div>
+                <div class="page-item">4</div>
+                <div class="page-item">▶</div>
+            </div>
+        </section>
+        
+        <!-- Order Management Section -->
+        <section id="orders" class="order-section">
+            <div class="section-header">
+                <h3 class="section-title">Manajemen Pesanan</h3>
+                <button class="btn btn-primary">+ Buat Pesanan Baru</button>
+            </div>
+            
+            <div class="order-overview">
+                <div class="order-stat">
+                    <div class="order-stat-value">127</div>
+                    <div class="order-stat-label">Total Pesanan Aktif</div>
+                </div>
+                <div class="order-stat">
+                    <div class="order-stat-value">45</div>
+                    <div class="order-stat-label">Pesanan Baru Hari Ini</div>
+                </div>
+                <div class="order-stat">
+                    <div class="order-stat-value">38</div>
+                    <div class="order-stat-label">Pesanan Selesai Hari Ini</div>
+                </div>
+                <div class="order-stat">
+                    <div class="order-stat-value">8</div>
+                    <div class="order-stat-label">Pesanan Terlambat</div>
+                </div>
+            </div>
+            
+            <div class="tabs-nav" style="margin-top: 2rem;">
+                <div class="tab-item active">Semua</div>
+                <div class="tab-item">Baru</div>
+                <div class="tab-item">Dalam Proses</div>
+                <div class="tab-item">Dikirim</div>
+                <div class="tab-item">Dikembalikan</div>
+                <div class="tab-item">Masalah</div>
+            </div>
+            
+            <table class="inventory-table">
+                <thead>
+                    <tr>
+                        <th>ID Order</th>
+                        <th>Pelanggan</th>
+                        <th>Items</th>
+                        <th>Tanggal Sewa</th>
+                        <th>Tenggat Kembali</th>
+                        <th>Status</th>
+                        <th>Nilai</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#ORD28765</td>
+                        <td>Putri Maharani</td>
+                        <td>3 items</td>
+                        <td>20 April 2025</td>
+                        <td>27 April 2025</td>
+                        <td><span class="status-badge" style="background-color: rgba(0, 123, 255, 0.1); color: #007bff;">Dikirim</span></td>
+                        <td>Rp 750.000</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-btn">👁️</button>
+                                <button class="action-btn">✏️</button>
+                                <button class="action-btn">📋</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#ORD28762</td>
+                        <td>Rendi Pratama</td>
+                        <td>4 items</td>
+                        <td>18 April 2025</td>
+                        <td>25 April 2025</td>
+                        <td><span class="status-badge" style="background-color: rgba(0, 123, 255, 0.1); color: #007bff;">Dikirim</span></td>
+                        <td>Rp 925.000</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-btn">👁️</button>
+                                <button class="action-btn">✏️</button>
+                                <button class="action-btn">📋</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#ORD28761</td>
+                        <td>Maya Sari</td>
+                        <td>2 items</td>
+                        <td>17 April 2025</td>
+                        <td>24 April 2025</td>
+                        <td><span class="status-badge" style="background-color: rgba(255, 193, 7, 0.1); color: var(--warning);">Dalam Proses</span></td>
+                        <td>Rp 450.000</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-btn">👁️</button>
+                                <button class="action-btn">✏️</button>
+                                <button class="action-btn">📋</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="pagination" style="margin-top: 2rem;">
+                <div class="page-item">◀</div>
+                <div class="page-item active">1</div>
+                <div class="page-item">2</div>
+                <div class="page-item">3</div>
+                <div class="page-item">4</div>
+                <div class="page-item">▶</div>
+            </div>
+            
+            <div class="order-timeline" style="margin-top: 3rem;">
+                <div class="section-header">
+                    <h3 class="section-title">Tracking Pesanan #ORD28765</h3>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-icon">📝</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Pesanan Dibuat</div>
+                        <div class="timeline-description">Putri Maharani membuat pesanan untuk 3 items</div>
+                        <div class="timeline-time">20 April 2025, 09:23</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-icon">💰</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Pembayaran Dikonfirmasi</div>
+                        <div class="timeline-description">Pembayaran Rp 750.000 berhasil dikonfirmasi</div>
+                        <div class="timeline-time">20 April 2025, 09:30</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-icon">📦</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Pesanan Diproses</div>
+                        <div class="timeline-description">Items telah diambil dari inventaris dan dikemas</div>
+                        <div class="timeline-time">20 April 2025, 11:45</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-icon">🚚</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Pesanan Dikirim</div>
+                        <div class="timeline-description">Paket telah dikirim ke alamat pelanggan</div>
+                        <div class="timeline-time">20 April 2025, 14:20</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" style="opacity: 0.5;">
+                    <div class="timeline-icon" style="background-color: var(--gray);">✓</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Pesanan Diterima</div>
+                        <div class="timeline-description">Menunggu konfirmasi penerimaan oleh pelanggan</div>
+                        <div class="timeline-time">Pending</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" style="opacity: 0.5;">
+                    <div class="timeline-icon" style="background-color: var(--gray);">↩️</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Pengembalian</div>
+                        <div class="timeline-description">Menunggu pengembalian dari pelanggan</div>
+                        <div class="timeline-time">Jadwal: 27 April 2025</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Loyalty Program Section -->
+        <section id="loyalty" class="loyalty-section">
+            <div class="section-header">
+                <h3 class="section-title">Program Loyalitas</h3>
+                <button class="btn btn-primary">+ Tambah Reward Baru</button>
+            </div>
+            
+            <div style="margin-bottom: 2rem;">
+                <div class="tabs-nav" style="margin-top: 1rem; margin-bottom: 1.5rem;">
+                    <div class="tab-item active">Rewards</div>
+                    <div class="tab-item">Konfigurasi Poin</div>
+                    <div class="tab-item">Statistik Program</div>
+                    <div class="tab-item">Kampanye</div>
+                    <div class="tab-item">Penukaran</div>
+                </div>
+                
+                <div class="reward-cards">
+                    <div class="reward-card">
+                        <img src="/api/placeholder/250/150" alt="Reward" class="reward-img">
+                        <div class="reward-body">
+                            <h4 class="reward-title">Diskon 25%</h4>
+                            <span class="reward-points">500 Poin</span>
+                            <p class="reward-desc">Dapatkan diskon 25% untuk penyewaan berikutnya dengan menukarkan 500 poin loyalitas Anda.</p>
+                            <button class="btn btn-outline">Edit Reward</button>
+                        </div>
+                    </div>
+                    
+                    <div class="reward-card">
+                        <img src="/api/placeholder/250/150" alt="Reward" class="reward-img">
+                        <div class="reward-body">
+                            <h4 class="reward-title">Gratis Pengiriman</h4>
+                            <span class="reward-points">300 Poin</span>
+                            <p class="reward-desc">Nikmati pengiriman gratis untuk penyewaan berikutnya dengan menukarkan 300 poin loyalitas Anda.</p>
+                            <button class="btn btn-outline">Edit Reward</button>
+                        </div>
+                    </div>
+                    
+                    <div class="reward-card">
+                        <img src="/api/placeholder/250/150" alt="Reward" class="reward-img">
+                        <div class="reward-body">
+                            <h4 class="reward-title">Perpanjangan Gratis</h4>
+                            <span class="reward-points">400 Poin</span>
+                            <p class="reward-desc">Perpanjang masa sewa hingga 3 hari tanpa biaya tambahan dengan menukarkan 400 poin.</p>
+                            <button class="btn btn-outline">Edit Reward</button>
+                        </div>
+                    </div>
+                    
+                    <div class="reward-card">
+                        <img src="/api/placeholder/250/150" alt="Reward" class="reward-img">
+                        <div class="reward-body">
+                            <h4 class="reward-title">VIP Early Access</h4>
+                            <span class="reward-points">1000 Poin</span>
+                            <p class="reward-desc">Dapatkan akses eksklusif untuk koleksi baru sebelum dirilis ke publik.</p>
+                            <button class="btn btn-outline">Edit Reward</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 3rem;">
+                <div class="section-header">
+                    <h3 class="section-title">Aturan Perolehan Poin</h3>
+                    <button class="btn btn-outline">Edit Aturan</button>
+                </div>
+                
+                <table class="inventory-table" style="margin-top: 1rem;">
+                    <thead>
+                        <tr>
+                            <th>Aktivitas</th>
+                            <th>Poin yang Diperoleh</th>
+                            <th>Status</th>
+                            <th>Terakhir Diubah</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Penyewaan Item</td>
+                            <td>10 poin per Rp 100.000</td>
+                            <td><span class="status-badge status-available">Aktif</span></td>
+                            <td>15 April 2025</td>
+                        </tr>
+                        <tr>
+                            <td>Menulis Ulasan</td>
+                            <td>50 poin per ulasan</td>
+                            <td><span class="status-badge status-available">Aktif</span></td>
+                            <td>15 April 2025</td>
+                        </tr>
+                        <tr>
+                            <td>Referral Pengguna Baru</td>
+                            <td>200 poin per referral</td>
+                            <td><span class="status-badge status-available">Aktif</span></td>
+                            <td>15 April 2025</td>
+                        </tr>
+                        <tr>
+                            <td>Pengembalian Tepat Waktu</td>
+                            <td>25 poin per pengembalian</td>
+                            <td><span class="status-badge status-available">Aktif</span></td>
+                            <td>15 April 2025</td>
+                        </tr>
+                        <tr>
+                            <td>Bonus Hari Spesial</td>
+                            <td>Poin double</td>
+                            <td><span class="status-badge status-maintenance">Non-aktif</span></td>
+                            <td>10 Maret 2025</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- Reports & Analytics Section -->
+        <section id="analytics" class="analytics-section">
+            <div class="section-header">
+                <h3 class="section-title">Laporan & Analitik</h3>
+                <div class="filter-controls">
+                    <div class="date-picker">
+                        <span>◀</span>
+                        <span>April 2025</span>
+                        <span>▶</span>
+                    </div>
+                    <button class="btn btn-outline">Export PDF</button>
+                    <button class="btn btn-outline">Export Excel</button>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 2rem;">
+                <div class="tabs-nav" style="margin-top: 1rem; margin-bottom: 1.5rem;">
+                    <div class="tab-item active">Dashboard Finansial</div>
+                    <div class="tab-item">User Analytics</div>
+                    <div class="tab-item">Inventory Performance</div>
+                    <div class="tab-item">Sustainability Impact</div>
+                </div>
+                
+                <div class="chart-container">
+                    <div class="chart-placeholder">
+                        [Grafik Pendapatan Bulanan - Tampilan Visualisasi Data]
+                    </div>
+                </div>
+                
+                <div class="analytics-grid">
+                    <div style="background-color: var(--light); padding: 1.5rem; border-radius: 8px;">
+                        <h4 style="margin-bottom: 1rem; font-size: 1.1rem;">Perbandingan Pendapatan</h4>
+                        <div class="chart-placeholder" style="height: 200px;">
+                            [Grafik Perbandingan Pendapatan - Bar Chart]
+                        </div>
+                    </div>
+                    
+                    <div style="background-color: var(--light); padding: 1.5rem; border-radius: 8px;">
+                        <h4 style="margin-bottom: 1rem; font-size: 1.1rem;">Biaya Operasional</h4>
+                        <div class="chart-placeholder" style="height: 200px;">
+                            [Grafik Biaya Operasional - Pie Chart]
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 3rem;">
+                <div class="section-header">
+                    <h3 class="section-title">Proyeksi Pendapatan Q2 2025</h3>
+                </div>
+                
+                <div class="chart-container">
+                    <div class="chart-placeholder">
+                        [Grafik Proyeksi Pendapatan - Line Chart]
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 1.5rem;">
+                    <div style="background-color: var(--light); padding: 1.5rem; border-radius: 8px; text-align: center;">
+                        <h4 style="color: var(--gray); font-size: 0.9rem; margin-bottom: 0.5rem;">Proyeksi Q2</h4>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--secondary);">Rp 285,5jt</div>
+                        <div style="color: var(--success); font-size: 0.9rem;">↑ 18.7% dari Q1</div>
+                    </div>
+                    
+                    <div style="background-color: var(--light); padding: 1.5rem; border-radius: 8px; text-align: center;">
+                        <h4 style="color: var(--gray); font-size: 0.9rem; margin-bottom: 0.5rem;">Proyeksi Biaya</h4>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--secondary);">Rp 142,8jt</div>
+                        <div style="color: var(--danger); font-size: 0.9rem;">↑ 8.3% dari Q1</div>
+                    </div>
+                    
+                    <div style="background-color: var(--light); padding: 1.5rem; border-radius: 8px; text-align: center;">
+                        <h4 style="color: var(--gray); font-size: 0.9rem; margin-bottom: 0.5rem;">Proyeksi Profit</h4>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--secondary);">Rp 142,7jt</div>
+                        <div style="color: var(--success); font-size: 0.9rem;">↑ 31.2% dari Q1</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 3rem;">
+                <div class="section-header">
+                    <h3 class="section-title">Sustainability Impact</h3>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 1.5rem;">
+                    <div style="background-color: #e8f5e9; padding: 1.5rem; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 2.5rem; color: #2e7d32; margin-bottom: 0.5rem;">🌲</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--secondary);">2.450kg</div>
+                        <div style="color: var(--gray); font-size: 0.9rem;">CO2 yang Terhemat</div>
+                    </div>
+                    
+                    <div style="background-color: #e1f5fe; padding: 1.5rem; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 2.5rem; color: #0277bd; margin-bottom: 0.5rem;">💧</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--secondary);">125.000L</div>
+                        <div style="color: var(--gray); font-size: 0.9rem;">Air yang Terhemat</div>
+                    </div>
+                    
+                    <div style="background-color: #fff8e1; padding: 1.5rem; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 2.5rem; color: #ff8f00; margin-bottom: 0.5rem;">⚡</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--secondary);">8.750kWh</div>
+                        <div style="color: var(--gray); font-size: 0.9rem;">Energi yang Terhemat</div>
+                    </div>
+                </div>
+                
+                <div class="chart-container" style="margin-top: 1.5rem;">
+                    <div class="chart-placeholder">
+                        [Grafik Dampak Lingkungan Bulanan - Area Chart]
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- System Settings Section -->
+        <section id="settings" class="settings-section">
+            <div class="section-header">
+                <h3 class="section-title">Pengaturan Sistem</h3>
+            </div>
+            
+            <div class="settings-grid">
+                <div class="settings-card">
+                    <div class="settings-icon">🎨</div>
+                    <h4 class="settings-title">Konfigurasi Aplikasi</h4>
+                    <p class="settings-desc">Sesuaikan tampilan dan fitur aplikasi sesuai kebutuhan perusahaan Anda.</p>
+                    <button class="btn btn-outline" style="margin-top: 1rem;">Konfigurasi</button>
+                </div>
+                
+                <div class="settings-card">
+                    <div class="settings-icon">🔌</div>
+                    <h4 class="settings-title">Manajemen API</h4>
+                    <p class="settings-desc">Kelola integrasi dengan layanan pihak ketiga dan konfigurasi API keys.</p>
+                    <button class="btn btn-outline" style="margin-top: 1rem;">Kelola API</button>
+                </div>
+                
+                <div class="settings-card">
+                    <div class="settings-icon">🔒</div>
+                    <h4 class="settings-title">Keamanan Data</h4>
+                    <p class="settings-desc">Atur enkripsi, backup data, dan kebijakan keamanan sistem.</p>
+                    <button class="btn btn-outline" style="margin-top: 1rem;">Keamanan</button>
+                </div>
+                
+                <div class="settings-card">
+                    <div class="settings-icon">📝</div>
+                    <h4 class="settings-title">Log Aktivitas</h4>
+                    <p class="settings-desc">Lihat catatan komprehensif aktivitas admin untuk keperluan audit.</p>
+                    <button class="btn btn-outline" style="margin-top: 1rem;">Lihat Log</button>
+                </div>
+                
+                <div class="settings-card">
+                    <div class="settings-icon">👥</div>
+                    <h4 class="settings-title">User Roles</h4>
+                    <p class="settings-desc">Atur tingkat akses untuk berbagai peran admin dalam sistem.</p>
+                    <button class="btn btn-outline" style="margin-top: 1rem;">Kelola Roles</button>
+                </div>
+                
+                <div class="settings-card">
+                    <div class="settings-icon">📱</div>
+                    <h4 class="settings-title">Notifikasi</h4>
+                    <p class="settings-desc">Konfigurasikan pengaturan notifikasi email, SMS, dan push.</p>
+                    <button class="btn btn-outline" style="margin-top: 1rem;">Konfigurasi</button>
+                </div>
+            </div>
+            
+            <div style="margin-top: 2rem;">
+                <div class="section-header">
+                    <h3 class="section-title">Database Backup</h3>
+                </div>
+                
+                <table class="inventory-table">
+                    <thead>
+                        <tr>
+                            <th>Nama Backup</th>
+                            <th>Tanggal</th>
+                            <th>Ukuran</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Backup_20250425_0001</td>
+                            <td>25 April 2025, 00:01</td>
+                            <td>245 MB</td>
+                            <td><span class="status-badge status-available">Sukses</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn">⬇️</button>
+                                    <button class="action-btn">🔍</button>
+                                    <button class="action-btn">🗑️</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Backup_20250424_0001</td>
+                            <td>24 April 2025, 00:01</td>
+                            <td>242 MB</td>
+                            <td><span class="status-badge status-available">Sukses</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn">⬇️</button>
+                                    <button class="action-btn">🔍</button>
+                                    <button class="action-btn">🗑️</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Backup_20250423_0001</td>
+                            <td>23 April 2025, 00:01</td>
+                            <td>240 MB</td>
+                            <td><span class="status-badge status-available">Sukses</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn">⬇️</button>
+                                    <button class="action-btn">🔍</button>
+                                    <button class="action-btn">🗑️</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div style="display: flex; justify-content: center; margin-top: 1.5rem;">
+                    <button class="btn btn-primary">Buat Backup Manual</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div>
+                    <div class="footer-logo">Circuwear</div>
+                    <p class="footer-desc">Platform manajemen inventaris, pengguna, dan penyewaan untuk bisnis fashion berkelanjutan.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">📱</a>
+                        <a href="#" class="social-link">📘</a>
+                        <a href="#" class="social-link">📸</a>
+                        <a href="#" class="social-link">🐦</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="footer-title">Link Cepat</h4>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Dashboard</a>
+                        <a href="#" class="footer-link">Inventaris</a>
+                        <a href="#" class="footer-link">Pengguna</a>
+                        <a href="#" class="footer-link">Pesanan</a>
+                        <a href="#" class="footer-link">Loyalitas</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="footer-title">Support</h4>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Helpdesk</a>
+                        <a href="#" class="footer-link">Dokumentasi</a>
+                        <a href="#" class="footer-link">Tutorial</a>
+                        <a href="#" class="footer-link">FAQ</a>
+                        <a href="#" class="footer-link">Kontak</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="footer-title">Kebijakan</h4>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Syarat & Ketentuan</a>
+                        <a href="#" class="footer-link">Privasi</a>
+                        <a href="#" class="footer-link">Keamanan</a>
+                        <a href="#" class="footer-link">Compliance</a>
+                        <a href="#" class="footer-link">Legal</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Circuwear. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+        
+        // Simulate active states and interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click events to tabs
+            const tabItems = document.querySelectorAll('.tab-item');
+            tabItems.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs in the same group
+                    const parentNav = this.parentElement;
+                    parentNav.querySelectorAll('.tab-item').forEach(t => {
+                        t.classList.remove('active');
+                    });
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                });
+            });
+            
+            // Add click events to calendar dates
+            const calendarDates = document.querySelectorAll('.calendar-date');
+            calendarDates.forEach(date => {
+                if (date.textContent.trim() !== '') {
+                    date.addEventListener('click', function() {
+                        // Remove active class from all dates
+                        document.querySelectorAll('.calendar-date').forEach(d => {
+                            d.classList.remove('active');
+                        });
+                        // Add active class to clicked date
+                        this.classList.add('active');
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#ORD28764</td>
+                        <td>Budi Santoso</td>
+                        <td>1 item</td>
+                        <td>20 April 2025</td>
+                        <td>25 April 2025</td>
+                        <td><span class="status-badge" style="background-color: rgba(40, 167, 69, 0.1); color: var(--success);">Dikembalikan</span></td>
+                        <td>Rp 350.000</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-btn">👁️</button>
+                                <button class="action-btn">✏️</button>
+                                <button class="action-btn">📋</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#ORD28763</td>
+                        <td>Anisa Wijaya</td>
+                        <td>2 items</td>
+                        <td>19 April 2025</td>
+                        <td>22 April 2025</td>
+                        <td><span class="status-badge" style="background-color: rgba(220, 53, 69, 0.1); color: var(--danger);">Terlambat</span></td>
+                        <td>Rp 500.000</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-btn">👁️</button>
+                                <button class="action-btn">✏️</button>
+                                <button class="action-btn">📋</button>
+                            
